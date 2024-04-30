@@ -25,7 +25,16 @@ function draw() {
   background(0);
   for (let i = 0; i < points.length; i++) {
     // ellipse(points[i].x, points[i].y, 10, 10);
-    ellipse(points[i].x + r*sin(angle + i*25), points[i].y, 10, 10);
+console.log(points[0])
+    if (points[i].x){
+      fill(255,255,0);
+      ellipse(points[i].x + r*sin(angle + i*25), points[i].y, 10, 10);
+
+    } else {
+      fill(0);
+      ellipse(points[i].x + r*sin(angle + i*25), points[i].y, 10, 10);
+
+    }
     // line(points[i].x, points[i].y, 10, 10);
   } 
   angle += 10;
