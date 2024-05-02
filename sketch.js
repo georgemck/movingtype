@@ -1,7 +1,14 @@
 let font;
 let points = [];
-let r =25;
 let angle = 0;
+let diameter = 20;
+let r = 50;
+let offsetX = 0;
+let offsetY = 0;
+let dragging = false;
+let xx = 0;
+let yy = 0;
+
 function preload() {
   font = loadFont('fonts/inter_normal_600.ttf');
   font = loadFont('Roboto/Roboto-LightItalic.ttf');
@@ -9,28 +16,54 @@ function preload() {
 
 function setup() {
   createCanvas(600, 600);
-  //points = font.textToPoints('Hi', 100, 300, 300); //, x, y, x2, y2)
 
-  points = font.textToPoints('GM', 50, 300, 300,{
-    sampleFactor:0.2,
-    simplifyThreshold:0
+  points = font.textToPoints('G', 50, 300, 300, {
+    sampleFactor: 0.2,
+    simplifyThreshold: 0
   }); //, x, y, x2, y2)
   print(points);
-
   angleMode(DEGREES);
-
 }
 
 function draw() {
   background(0);
+
+
   for (let i = 0; i < points.length; i++) {
-    // ellipse(points[i].x, points[i].y, 10, 10);
-    ellipse(points[i].x + r*sin(angle + i*25), points[i].y, 10, 10);
-    // line(points[i].x, points[i].y, 10, 10);
-  } 
+    if (dragging) {
+      ellipse(points[i].x + r * sin(angle + i * 25) + mouseX - xx, points[i].y + mouseY + offsetY - yy, 10, 10);
+    } else {
+      ellipse(points[i].x + r * sin(angle + i * 25) , points[i].y , 10, 10);
+    }
+
+  }
   angle += 10;
 }
 
+
+function mousePressed(e) {
+ 
+
+
+  for (let i = 0; i < points.length; i++) {
+    if (dist(points[i].x, points[i].y, mouseX, mouseY) < diameter * 2) {
+      dragging = true;
+      xx = points[points.length - 1].x - points[0].x + mouseX;
+      yy = points[0].y - points[points.length - 1].y + mouseY;
+      console.log("DRAGGING")
+    }
+
+
+  }
+
+
+
+
+}
+
+function mouseReleased() {
+  dragging = false;
+} 
 
 /*
 
