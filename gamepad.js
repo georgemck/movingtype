@@ -1,5 +1,6 @@
 //from https://github.com/georgemck/html5-gamepad-test
 //forked from https://github.com/greggman/html5-gamepad-test
+//learn more https://web.dev/articles/gamepad
 
 let buttonValue = [];
 let axesValue = {};
